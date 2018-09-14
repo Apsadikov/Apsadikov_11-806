@@ -27,7 +27,7 @@ public class Occurrence {
         int count = 0;
         int index = -1;
         for (int i = 0; i < a; i++) {
-            for (int j = count; j < b ; j++) {
+            for (int j = count; j < b; j++) {
                 if (!find) {
                     if (aAray[i] == bAray[j]) {
                         count++;
