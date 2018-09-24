@@ -8,8 +8,8 @@ public class TaskJ {
 
     public static void main(String[] args) {
         String str = "abcba";
-       if (task(0, str)) System.out.println("Yes");
-           else System.out.println("No");
+        if (task(0, str)) System.out.println("Yes");
+            else System.out.println("No");
     }
 
     public static boolean task(int index, String str) {
