@@ -6,11 +6,11 @@ public class TaskG {
 //    Разрешена только рекурсия и целочисленная арифметика.
 
     public static void main(String[] args) {
-        task(4237);
+        task(1237);
     }
 
     public static void task(int n) {
-        if (n > 1) {
+        if (n >= 1) {
             task(n / 10);
             System.out.print(n % 10 + " ");
         }
