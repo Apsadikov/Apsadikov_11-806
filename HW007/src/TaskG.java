@@ -15,4 +15,4 @@ public class TaskG {
             System.out.print(n % 10 + " ");
         }
     }
-}
+}1
