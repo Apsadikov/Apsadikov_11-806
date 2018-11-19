@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CosineSimilarity implements ITextAnalyze {
+public class CosineSimilarityImpl implements ITextAnalyze {
     private List<String> wordList = new ArrayList<>();
 
     @Override
@@ -9,7 +9,8 @@ public class CosineSimilarity implements ITextAnalyze {
         String str1 = clearString(textProvider1.getText());
         String str2 = clearString(textProvider2.getText());
 
-        getAllWords(str1 + " " + str2);
+        getWords(str1);
+        getWords(str2);
 
         double[] vector1 = convertStringToVector(str1);
         double[] vector2 = convertStringToVector(str2);
@@ -24,7 +25,7 @@ public class CosineSimilarity implements ITextAnalyze {
         return str.replaceAll("\\d|\\,|\\.", "");
     }
 
-    private List<String> getAllWords(String string) {
+    private void getWords(String string) {
         String[] wordArray = string.split("\\s");
         for (String word : wordArray) {
             word = word.toLowerCase();
@@ -32,7 +33,6 @@ public class CosineSimilarity implements ITextAnalyze {
                 wordList.add(word);
             }
         }
-        return wordList;
     }
 
 

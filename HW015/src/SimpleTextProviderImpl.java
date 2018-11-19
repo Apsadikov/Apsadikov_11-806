@@ -1,7 +1,7 @@
-public class SimpleTextProvivder implements ITextProvider {
+public class SimpleTextProviderImpl implements ITextProvider {
     private String string;
 
-    public SimpleTextProvivder(String string) {
+    public SimpleTextProviderImpl(String string) {
         this.string = string;
     }
 

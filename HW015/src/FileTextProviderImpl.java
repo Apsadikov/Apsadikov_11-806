@@ -2,10 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class FileTextProvider implements ITextProvider {
-    private File input;
+public class FileTextProviderImpl implements ITextProvider {
+    protected File input;
 
-    public FileTextProvider(File input) {
+    public FileTextProviderImpl(File input) {
         this.input = input;
     }
 
