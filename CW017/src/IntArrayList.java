@@ -1,66 +1,62 @@
 import java.util.Arrays;
 
-public class IntArrayList implements Intlist {
-    private int[] elements = new int[10];
+public class IntArrayList implements IntList {
     private static final int DEFAULT_CAPACITY = 10;
-    private static final double EXTENSION_COEF = 1.5D;
+    private static final double EXTENSION_COEF = 1.5;
+    private int[] elements = new int[DEFAULT_CAPACITY];
     private int count = 0;
 
-    public IntArrayList() {
-    }
-
     public void add(int element) {
-        if (this.count >= this.elements.length) {
-            this.grow();
+        if (count >= elements.length) {
+            grow();
         }
 
-        this.elements[this.count++] = element;
+        elements[count++] = element;
     }
 
     public void add(int element, int position) {
         int from = position;
-        if (position >= this.count) {
-            from = this.size();
+        if (position >= count) {
+            from = size();
         }
 
-        int[] lastElements = Arrays.copyOfRange(this.elements, from, this.count);
+        int[] lastElements = Arrays.copyOfRange(elements, from, count);
 
-        while (position > this.elements.length) {
-            this.grow();
+        while (position > elements.length) {
+            grow();
         }
 
-        this.count = position;
-        this.add(element);
+        count = position;
+        add(element);
 
         for (int i = 0; i < lastElements.length; ++i) {
-            this.add(lastElements[i]);
+            add(lastElements[i]);
         }
-
     }
 
     private void grow() {
-        int oldCapacity = this.elements.length;
-        int newCapacity = (int) ((double) oldCapacity * 1.5D);
-        this.elements = Arrays.copyOf(this.elements, newCapacity);
+        int oldCapacity = elements.length;
+        int newCapacity = (int) ((double) oldCapacity * EXTENSION_COEF);
+        elements = Arrays.copyOf(elements, newCapacity);
     }
 
     public int get(int index) {
-        if (index < this.count && index >= 0) {
-            return this.elements[index];
+        if (index < count && index >= 0) {
+            return elements[index];
         } else {
             throw new IllegalArgumentException("Index invalid");
         }
     }
 
     public int size() {
-        return this.count;
+        return count;
     }
 
     public boolean contains(int value) {
         boolean isFind = false;
 
-        for (int i = 0; i < this.count; ++i) {
-            if (this.get(i) == value) {
+        for (int i = 0; i < count; ++i) {
+            if (get(i) == value) {
                 isFind = true;
             }
         }
@@ -69,25 +65,24 @@ public class IntArrayList implements Intlist {
     }
 
     public void remove(int index) {
-        int[] lastElements = Arrays.copyOfRange(this.elements, index + 1, this.count);
-        this.elements = Arrays.copyOfRange(this.elements, 0, this.size() - 1);
-        this.count = index;
+        int[] lastElements = Arrays.copyOfRange(elements, index + 1, count);
+        elements = Arrays.copyOfRange(elements, 0, size() - 1);
+        count = index;
 
-        for (int i = 0; i < lastElements.length; ++i) {
-            this.add(lastElements[i]);
+        for (int i = 0; i < lastElements.length; i++) {
+            add(lastElements[i]);
         }
-
     }
 
     public void sort() {
-        for (int i = 0; i < this.size(); ++i) {
-            int min = this.elements[i];
+        for (int i = 0; i < size(); ++i) {
+            int min = elements[i];
 
-            for (int j = 0; j < this.size(); ++j) {
-                if (min > this.elements[j]) {
-                    int a = this.elements[i];
-                    this.elements[i] = this.elements[j];
-                    this.elements[j] = a;
+            for (int j = 0; j < size(); ++j) {
+                if (min > elements[j]) {
+                    int a = elements[i];
+                    elements[i] = elements[j];
+                    elements[j] = a;
                     min = a;
                 }
             }
@@ -96,20 +91,41 @@ public class IntArrayList implements Intlist {
     }
 
     public int[] toArray() {
-        return Arrays.copyOf(this.elements, this.size());
+        return Arrays.copyOf(elements, size());
     }
 
-    public void addAll(Intlist list) {
+    public void addAll(IntList list) {
         for (int i = 0; i < list.size(); ++i) {
-            this.add(list.get(i));
+            add(list.get(i));
         }
-
     }
 
-    public void addAll(Intlist list, int index) {
+    public void addAll(IntList list, int index) {
         for (int i = 0; i < list.size(); ++i) {
-            this.add(list.get(i), index + i);
+            add(list.get(i), index + i);
+        }
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new IteratorImpl();
+    }
+
+    class IteratorImpl implements Iterator {
+        private int currentIndex;
+
+        public IteratorImpl() {
+            currentIndex = 0;
         }
 
+        @Override
+        public int next() {
+            return get(currentIndex++);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < count;
+        }
     }
 }

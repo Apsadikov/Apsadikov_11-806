@@ -1,21 +1,23 @@
-public interface Intlist {
-    void add(int var1);
+public interface IntList {
+    void add(int element);
 
-    void add(int var1, int var2);
+    void add(int element, int position);
 
-    int get(int var1);
+    int get(int position);
 
     int size();
 
-    boolean contains(int var1);
+    boolean contains(int element);
 
-    void remove(int var1);
+    void remove(int position);
 
     void sort();
 
     int[] toArray();
 
-    void addAll(Intlist var1);
+    void addAll(IntList elements);
 
-    void addAll(Intlist var1, int var2);
+    void addAll(IntList elements, int position);
+
+    Iterator iterator();
 }
