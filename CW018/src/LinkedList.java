@@ -61,8 +61,12 @@ public class LinkedList<T> implements ILinkedList {
 
     @Override
     public void remove(int position) {
-        Node node = get(position - 1);
-        node.setNext(get(position).getNext());
+        if (position == 0) {
+            header = header.getNext();
+        } else {
+            Node node = get(position - 1);
+            node.setNext(get(position).getNext());
+        }
         size--;
     }
 
