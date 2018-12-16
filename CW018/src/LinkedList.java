@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class LinkedList<T> implements ILinkedList {
     private Node<T> header;
     private Node<T> last;
@@ -48,6 +50,18 @@ public class LinkedList<T> implements ILinkedList {
     }
 
     @Override
+    public Node[] toArray() {
+        Node[] nodeArray = new Node[size];
+        int i = 0;
+        Iterator<Node<T>> nodeIterator = getIterator();
+        while (nodeIterator.hasNext()) {
+            nodeArray[i] = nodeIterator.next();
+            i++;
+        }
+        return nodeArray;
+    }
+
+    @Override
     public boolean contains(Object element) {
         Node currentNode = header;
         while (currentNode.getNext() != null) {
@@ -88,5 +102,24 @@ public class LinkedList<T> implements ILinkedList {
         }
 
         size += elements.size() - 1;
+    }
+
+    @Override
+    public Iterator<Node<T>> getIterator() {
+        return new NodeIterator();
+    }
+
+    class NodeIterator implements Iterator<Node<T>> {
+        private int count = 0;
+
+        @Override
+        public boolean hasNext() {
+            return count < size;
+        }
+
+        @Override
+        public Node<T> next() {
+            return get(count++);
+        }
     }
 }

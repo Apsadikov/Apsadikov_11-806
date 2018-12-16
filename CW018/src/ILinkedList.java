@@ -1,4 +1,6 @@
-public interface ILinkedList<T> {
+import java.util.Iterator;
+
+public interface ILinkedList<T>{
     void add(T element);
 
     void add(T element, int position);
@@ -7,6 +9,8 @@ public interface ILinkedList<T> {
 
     int size();
 
+    Node<T>[] toArray();
+
     boolean contains(T element);
 
     void remove(int position);
@@ -14,4 +18,6 @@ public interface ILinkedList<T> {
     void addAll(ILinkedList<T> elements);
 
     void addAll(ILinkedList<T> elements, int position);
+
+    Iterator<Node<T>> getIterator();
 }
